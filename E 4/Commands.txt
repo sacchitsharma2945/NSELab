@@ -1,0 +1,21 @@
+1.	Install OpenSSL if not already installed:
+	Linux: usually pre-installed or use sudo apt-get install openssl
+	Windows: download from https://slproweb.com/products/Win32OpenSSL.html
+
+2.	Generate private key:
+openssl genpkey -algorithm RSA -out private.key -pkeyopt rsa_keygen_bits:2048
+
+3.	Generate a self-signed certificate using the private key:
+openssl req -new -x509 -key private.key -out certificate.crt -days 365
+	You will be prompted to enter details like Country, Organization, Common Name (CN), etc.
+
+4.	View the certificate details:
+openssl x509 -in certificate.crt -text -noout
+	Verify the certificate structure:
+	Subject, Issuer (same for self-signed)
+	Validity period
+	Public key details
+	Signature algorithm
+
+	Optional: Verify certificate signature:
+openssl verify -CAfile certificate.crt certificate.crt
